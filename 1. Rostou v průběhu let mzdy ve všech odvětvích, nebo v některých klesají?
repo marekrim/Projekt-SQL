@@ -1,1 +1,12 @@
 Rostou v průběhu let mzdy ve všech odvětvích, nebo v některých klesají?
+
+SELECT
+industry_branch_code,
+payroll_year,
+ROUND (AVG(average_wages), 0) AS average_salary_branch_year
+FROM t_marek_riman_project_SQL_primary_final
+WHERE value_type_code = '5958' 
+AND industry_branch_code IS NOT NULL
+AND calculation_code = '200'
+GROUP BY industry_branch_code, payroll_year, payroll_year
+ORDER BY industry_branch_code, payroll_year, payroll_quarter;
