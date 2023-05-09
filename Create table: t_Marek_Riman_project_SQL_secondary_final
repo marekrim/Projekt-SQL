@@ -11,4 +11,4 @@ CREATE TABLE IF NOT EXISTS t_Marek_Riman_project_SQL_secondary_final
 FROM countries c
 JOIN economies e 
   on c.country = e.country
-  AND c.country = 'Czech Republic'
+  AND c.continent = 'Europe'
