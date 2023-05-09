@@ -1,0 +1,34 @@
+CREATE TABLE IF NOT EXISTS t_GDP_growth AS
+  SELECT 
+  GDP1.country, 
+  GDP1.year, 
+  GDP2.year + 1 as year_prev, 
+  round( ( GDP1.GDP_mil_dollars - GDP2.GDP_mil_dollars ) / GDP2.GDP_mil_dollars * 100, 2 ) as GDP_growth
+FROM t_Marek_Riman_project_SQL_secondary_final GDP1
+JOIN t_Marek_Riman_project_SQL_secondary_final GDP2
+  ON GDP1.country = GDP2.country
+  AND GDP1.year = GDP2.year + 1;
+
+CREATE TABLE IF NOT EXISTS t_average_salary_growth AS
+  SELECT
+  payroll_year,
+  ROUND (AVG(average_wages), 0) AS average_salary_branch_year
+FROM t_marek_riman_project_SQL_primary_final
+GROUP BY payroll_year, payroll_year
+ORDER BY payroll_year;
+
+CREATE TABLE IF NOT EXISTS t_average_salary_growth2 AS
+  SELECT 
+  GDPg1.payroll_year, 
+  GDPg2.payroll_year + 1 as year_prev, 
+  round( ( GDPg1.average_salary_branch_year - GDPg2.average_salary_branch_year ) / GDPg2.average_salary_branch_year * 100, 2 ) as salary_growth
+FROM t_average_salary_growth GDPg1
+JOIN t_average_salary_growth GDPg2
+  ON GDPg1.payroll_year = GDPg2.payroll_year + 1;
+
+SELECT *
+FROM t_GDP_growth
+INNER JOIN t_Year_Price_project_3
+  ON t_GDP_growth.year_prev = t_Year_Price_project_3 .year_prev
+INNER JOIN t_average_salary_growth2 
+  ON t_GDP_growth.year_prev = t_average_salary_growth2.year_prev;
