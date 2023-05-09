@@ -1,0 +1,14 @@
+CREATE TABLE IF NOT EXISTS t_Marek_Riman_project_SQL_secondary_final
+  SELECT 
+  c.country, 
+  c.capital_city, 
+  c.independence_date, 
+  e.year, 
+  round( e.GDP / 1000000, 2 ) as GDP_mil_dollars , 
+  e.population, 
+  e.gini, 
+  e.taxes 
+FROM countries c
+JOIN economies e 
+  on c.country = e.country
+  AND c.country = 'Czech Republic'
