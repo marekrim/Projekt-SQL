@@ -3,33 +3,33 @@ Tabulka obsahuje data mezd a cen potravin za Českou republiku sjednocených na 
 
 CREATE TABLE IF NOT EXISTS t_marek_riman_project_SQL_primary_final AS 
 SELECT
-cp.value AS average_wages,
-cp.value_type_code,
-cp.calculation_code,
-cp.industry_branch_code,
-cp.payroll_year,
-cp.payroll_quarter,
-cpc2.name AS food_category, 
-cpib.name AS industry,
-cp2.value AS price,
-DATE_FORMAT(cp2.date_from, '%Y') AS price_measured_from,
-DATE_FORMAT(cp2.date_to, '%Y') AS price_measured_to,
-cp2.region_code
+  cp.value AS average_wages,
+  cp.value_type_code,
+  cp.calculation_code,
+  cp.industry_branch_code,
+  cp.payroll_year,
+  cp.payroll_quarter,
+  cpc2.name AS food_category, 
+  cpib.name AS industry,
+  cp2.value AS price,
+  DATE_FORMAT(cp2.date_from, '%Y') AS price_measured_from,
+  DATE_FORMAT(cp2.date_to, '%Y') AS price_measured_to,
+  cp2.region_code
 FROM czechia_payroll cp
 JOIN czechia_payroll_calculation cpc
-ON cp.calculation_code = cpc.code
+  ON cp.calculation_code = cpc.code
 JOIN czechia_payroll_industry_branch cpib
-ON cp.industry_branch_code = cpib.code
+  ON cp.industry_branch_code = cpib.code
 JOIN czechia_payroll_unit cpu
-ON cp.unit_code = cpu.code
+  ON cp.unit_code = cpu.code
 JOIN czechia_payroll_value_type cpvt
-ON cp.value_type_code = cpvt.code 
+  ON cp.value_type_code = cpvt.code 
 JOIN czechia_price cp2 
-ON YEAR (cp2.date_from) = cp.payroll_year
+  ON YEAR (cp2.date_from) = cp.payroll_year
 JOIN czechia_price_category cpc2
-ON cp2.category_code = cpc2.code
+  ON cp2.category_code = cpc2.code
 WHERE value_type_code = '5958' 
-AND industry_branch_code IS NOT NULL
-AND region_code IS NULL
-AND calculation_code = '200'
+  AND industry_branch_code IS NOT NULL
+  AND region_code IS NULL
+  AND calculation_code = '200'
 ORDER BY industry_branch_code, payroll_year, payroll_quarter;
