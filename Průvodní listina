@@ -1,0 +1,30 @@
+Úkol č. 1: Rostou v průběhu let mzdy ve všech odvětvích, nebo v některých klesají? 
+
+Jako primárním zdroj dat jsem využil tabulku czechia_payroll.
+Z tabulky jsem vybral pouze průměrné hrubé mzdy (value_type_code = 5958)
+Calculation code jsem vybral 200, protože chci počítat s plnými úvazky zaměstnanců nikoliv z pouhým fyzickým počtem zaměstnanců 
+(položka 100 znamená fyzický počet zaměstnanců, položka 200 přepočtený počet zaměstnanců na plný úvazek – informace z dokumentace 
+https://data.gov.cz/datov%C3%A1sada?iri=https%3A%2F%2Fdata.gov.cz%2Fzdroj%2Fdatov%C3%A9-sady%2F00025593%2F7ddcb833bddeeb84db39004d7e276b87). 
+
+VÝSLEDEK: Mzdy průběžně a dlouhodobě rostou ve všech odvětvích, vyskytly se pouze jednotlivé drobné odchylky, kdy mzda kolísala mírně dolů a pak opět nahoru.
+
+Úkol č. 2: Kolik je možné si koupit litrů mléka a kilogramů chleba za první a poslední srovnatelné období v dostupných datech cen a mezd?
+
+VÝSLEDEK: V řešení příkladu vypočítávám roční průměr za všechny mzdy bez ohledu na odvětví. 
+První srovnatelné období je rok 2006. Je možné koupit 1312,97kg chleba a 1465,72l mléka.
+Poslední srovnatelné období je rok 2018. Je možné koupit 1365,14kg chleba a 1669,58l mléka.
+
+Úkol č. 3: Která kategorie potravin zdražuje nejpomaleji (je u ní nejnižší percentuální meziroční nárůst)?
+
+VÝSLEDEK: Nejnižní meziroční nárůst je u cukru krystal, rajských jablek červených kulatých a banánů žlutých.
+
+Úkol č. 4: Existuje rok, ve kterém byl meziroční nárůst cen potravin výrazně vyšší než růst mezd (větší než 10 %)?
+
+VÝSLEDEK: Pokud bereme v úvahu průměr cen potravit za všechny komodity, tak je odpověď ne. 
+Protože v ani jednom roce nebyl průměrný nárůst cen všech potravit vyšší než 10%. 
+Maximální průměrný nárůst cen všech potravin byl 9,98% mezi rokem 2017 a 2018.
+
+Úkol č. 5: Má výška HDP vliv na změny ve mzdách a cenách potravin? 
+Neboli, pokud HDP vzroste výrazněji v jednom roce, projeví se to na cenách potravin či mzdách ve stejném nebo násdujícím roce výraznějším růstem?
+
+VÝSLEDEK: Růst nebo pokles HDP v jednom či jiném roce nemá vždy stejný vliv na ceny a mzdy. Nelze tedy predikovat, jak nárůst HPD ovlivní mzdu a ceny pro další období.
