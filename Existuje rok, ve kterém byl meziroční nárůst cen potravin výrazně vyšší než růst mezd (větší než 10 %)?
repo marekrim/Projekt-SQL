@@ -1,0 +1,25 @@
+CREATE TABLE IF NOT exists t_Year_Price_project AS
+  SELECT
+  price_measured_from,
+  COUNT(1) AS row_count,
+  SUM(price) AS sum_of_price
+FROM t_marek_riman_project_SQL_primary_final
+GROUP BY price_measured_from;
+
+CREATE TABLE IF NOT exists t_Year_Price_project_2 AS
+  SELECT
+  price_measured_from,
+  ROUND( sum_of_price / row_count, 2) AS average_price_perYear
+FROM t_Year_Price_project
+
+CREATE TABLE IF NOT exists t_Year_Price_project_3 AS
+  SELECT 
+  YP.price_measured_from, 
+  YP2.price_measured_from + 1 as year_prev, 
+  round( ( YP.average_price_perYear - YP2.average_price_perYear ) / YP2.average_price_perYear * 100, 2 ) as price_growth
+FROM t_Year_Price_project_2 YP
+JOIN t_Year_Price_project_2 YP2
+ON YP.price_measured_from = YP2.price_measured_from + 1;
+
+SELECT *
+FROM t_Year_Price_project_3
