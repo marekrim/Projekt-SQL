@@ -1,1 +1,21 @@
 2. Kolik je možné si koupit litrů mléka a kilogramů chleba za první a poslední srovnatelné období v dostupných datech cen a mezd?
+
+CREATE TABLE IF NOT EXISTS t_marek_riman_average_price_wages AS
+SELECT
+  ROUND (AVG(price), 2) AS average_price_year,
+  price_measured_from,
+  food_category,
+  ROUND (AVG(average_wages), 0) AS average_wages_year,
+  payroll_year
+FROM t_marek_riman_project_SQL_primary_final
+WHERE price_measured_from IN (2006,2018)
+GROUP BY food_category, price_measured_from, payroll_year;
+
+
+SELECT
+  food_category,
+  price_measured_from,
+  payroll_year,
+  ROUND( average_wages_year / average_price_year, 2) AS average_purchase
+FROM t_marek_riman_average_price_wages
+WHERE food_category IN ('Chléb konzumní kmínový','Mléko polotučné pasterované')
