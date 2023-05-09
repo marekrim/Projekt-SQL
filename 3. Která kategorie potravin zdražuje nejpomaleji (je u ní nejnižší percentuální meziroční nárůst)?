@@ -1,0 +1,33 @@
+CREATE TABLE IF NOT EXISTS t_price_project AS
+	SELECT
+	food_category,
+	price_measured_from,
+	COUNT(1) AS row_count,
+	SUM(price) AS sum_of_price
+FROM t_marek_riman_project_SQL_primary_final 
+GROUP BY food_category, price_measured_from;
+  
+CREATE TABLE IF NOT exists t_price_project_2 AS
+  SELECT 
+  food_category,
+  price_measured_from,
+ ROUND( sum_of_price / row_count, 2) AS average_price_perYearandCategory
+ FROM t_price_project
+ 
+CREATE TABLE IF NOT exists t_price_project_3 AS
+  SELECT 
+  tp.food_category, 
+  tp.price_measured_from, 
+  tp2.price_measured_from + 1 as year_prev, 
+  round( ( tp.average_price_perYearandCategory - tp2.average_price_perYearandCategory ) / tp2.average_price_perYearandCategory * 100, 2 ) as price_growth
+FROM t_price_project_2 tp
+JOIN t_price_project_2 tp2
+ON tp.food_category = tp2.food_category
+AND tp.price_measured_from = tp2.price_measured_from + 1;
+
+SELECT
+  food_category,
+  ROUND(AVG(price_growth), 2) AS average
+  FROM t_price_project_3
+GROUP BY food_category
+ORDER BY average ASC;
